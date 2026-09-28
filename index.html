@@ -1,1 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MaliRide - E-Rickshaw Booking</title>
 
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fa;
+      color: #222;
+    }
+
+    header {
+      background: #0b7a53;
+      color: white;
+      text-align: center;
+      padding: 25px 15px;
+    }
+
+    header h1 {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+
+    header p {
+      font-size: 15px;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 25px auto;
+      padding: 20px;
+    }
+
+    .booking-box {
+      background: white;
+      padding: 22px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+
+    .booking-box h2 {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin: 12px 0 6px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 20px;
+      border: none;
+      border-radius: 8px;
+      background: #0b7a53;
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #095f41;
+    }
+
+    .info {
+      text-align: center;
+      margin-top: 18px;
+      font-size: 14px;
+      color: #666;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #777;
+      font-size: 13px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>MaliRide 🛺</h1>
+    <p>Easy E-Rickshaw Booking in Biratnagar</p>
+  </header>
+
+  <div class="container">
+
+    <div class="booking-box">
+
+      <h2>Book Your Ride</h2>
+
+      <label for="name">Your Name</label>
+      <input type="text" id="name" placeholder="Enter your name">
+
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" placeholder="Enter your phone number">
+
+      <label for="pickup">Pickup Location</label>
+      <input type="text" id="pickup" placeholder="Where should we pick you up?">
+
+      <label for="destination">Destination</label>
+      <input type="text" id="destination" placeholder="Where are you going?">
+
+      <button onclick="bookRide()">Book Ride</button>
+
+      <p class="info">
+        Our admin will contact you to confirm your ride and fare.
+      </p>
+
+    </div>
+
+  </div>
+
+  <footer>
+    © 2026 MaliRide — Biratnagar
+  </footer>
+
+  <script>
+    function bookRide() {
+      const name = document.getElementById("name").value;
+      const phone = document.getElementById("phone").value;
+      const pickup = document.getElementById("pickup").value;
+      const destination = document.getElementById("destination").value;
+
+      if (!name || !phone || !pickup || !destination) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      alert(
+        "Booking request received!\\n\\n" +
+        "Name: " + name + "\\n" +
+        "Pickup: " + pickup + "\\n" +
+        "Destination: " + destination
+      );
+    }
+  </script>
+
+</body>
+</html>
