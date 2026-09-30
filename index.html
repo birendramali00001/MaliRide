@@ -107,7 +107,6 @@
   </header>
 
   <div class="container">
-
     <div class="booking-box">
 
       <h2>Book Your Ride</h2>
@@ -131,31 +130,84 @@
       </p>
 
     </div>
-
   </div>
 
   <footer>
     © 2026 MaliRide — Biratnagar
   </footer>
 
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
   <script>
-    function bookRide() {
-      const name = document.getElementById("name").value;
-      const phone = document.getElementById("phone").value;
-      const pickup = document.getElementById("pickup").value;
-      const destination = document.getElementById("destination").value;
+    const SUPABASE_URL = "https://mtblgpkirgwytiylenrg.supabase.co";
+    const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_fW5mkTBuEKJVXc7_3Olv4w_uRA5aQ90";
+
+    const supabaseClient = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_PUBLISHABLE_KEY
+    );
+
+    async function bookRide() {
+
+      const name = document.getElementById("name").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const pickup = document.getElementById("pickup").value.trim();
+      const destination = document.getElementById("destination").value.trim();
 
       if (!name || !phone || !pickup || !destination) {
         alert("Please fill in all fields.");
         return;
       }
 
-      alert(
-        "Booking request received!\\n\\n" +
-        "Name: " + name + "\\n" +
-        "Pickup: " + pickup + "\\n" +
-        "Destination: " + destination
-      );
+      const button = document.querySelector("button");
+
+      button.disabled = true;
+      button.innerText = "Booking...";
+
+      try {
+
+        const { data, error } = await supabaseClient
+          .from("bookings")
+          .insert([
+            {
+              passenger_phone: phone,
+              pickup: pickup,
+              destination: destination,
+              status: "pending"
+            }
+          ])
+          .select();
+
+        if (error) {
+          console.error(error);
+          alert("Booking failed: " + error.message);
+          return;
+        }
+
+        alert(
+          "Booking request received! 🛺\n\n" +
+          "Name: " + name + "\n" +
+          "Pickup: " + pickup + "\n" +
+          "Destination: " + destination
+        );
+
+        document.getElementById("name").value = "";
+        document.getElementById("phone").value = "";
+        document.getElementById("pickup").value = "";
+        document.getElementById("destination").value = "";
+
+      } catch (err) {
+
+        console.error(err);
+        alert("Something went wrong. Please try again.");
+
+      } finally {
+
+        button.disabled = false;
+        button.innerText = "Book Ride";
+
+      }
     }
   </script>
 
