@@ -171,10 +171,12 @@
           .from("bookings")
           .insert([
             {
-              passenger_phone: phone,
-              pickup: pickup,
-              destination: destination,
-              status: "pending"
+    passenger_name: name,
+    passenger_phone: phone,
+    pickup: pickup,
+    destination: destination,
+    status: "pending"
+            }"
             }
           ])
           .select();
